@@ -28,6 +28,8 @@ public class WorkerServiceImpl implements WorkerService {
 
         final var randomOffset = random.nextInt((int) totalWorkers);
 
-        return workerMapper.toDto(workerRepo.getWorkerByOffset(randomOffset).orElseThrow());
+        return workerMapper.toDto(
+                workerRepo.getWorkerByOffset(randomOffset).orElseThrow(()-> new RuntimeException("oops")))
+                ;
     }
 }

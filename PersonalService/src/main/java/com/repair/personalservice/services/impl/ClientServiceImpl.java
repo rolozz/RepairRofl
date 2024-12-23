@@ -30,6 +30,8 @@ public class ClientServiceImpl implements ClientService {
 
         final var randomOffset = random.nextInt((int) totalClients);
 
-        return clientMapper.toDto(clientRepo.getClientByOffset(randomOffset).orElseThrow());
+        return clientMapper.toDto(
+                clientRepo.getClientByOffset(randomOffset).orElseThrow(()-> new RuntimeException("oops"))
+        );
     }
 }

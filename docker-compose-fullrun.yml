@@ -7,3 +7,11 @@ services:
       POSTGRES_PASSWORD: root
     ports:
       - "5432:5432"
+  RepairDB:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: repair
+      POSTGRES_USER: roots
+      POSTGRES_PASSWORD: roots
+    ports:
+      - "5433:5432"

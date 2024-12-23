@@ -18,8 +18,8 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-    @GetMapping("/get")
-    public ResponseEntity<ClientDto> getSomeRandom() {
+    @GetMapping("/client")
+    public ResponseEntity<ClientDto> getSomeRandomC() {
         return ResponseEntity.ok(clientService.getRandomClient());
     }
 

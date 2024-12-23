@@ -1,3 +1,5 @@
 rootProject.name = 'RepairRofl'
+
 include 'EurekaServer'
 include 'PersonalService'
+include 'RepairService'
