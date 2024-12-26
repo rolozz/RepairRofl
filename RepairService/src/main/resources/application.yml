@@ -17,6 +17,22 @@ spring:
     change-log: classpath:db/changelog/db.changelog-master.yml
     drop-first: false
 
+  kafka:
+    bootstrap-servers: localhost:9092
+    admin:
+      properties:
+        bootstrap.servers: localhost:9092
+    consumer:
+      group-id: b-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
 eureka:
   client:
     service-url:
@@ -36,6 +52,7 @@ resilience4j:
         base-config: default
         failureRateThreshold: 50
         waitDurationInOpenState: 10s
+
 
 
 

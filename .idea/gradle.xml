@@ -10,6 +10,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/EurekaServer" />
+            <option value="$PROJECT_DIR$/FinalizerService" />
             <option value="$PROJECT_DIR$/PersonalService" />
             <option value="$PROJECT_DIR$/RepairService" />
           </set>

@@ -1,27 +1,29 @@
 server:
-  port: 8081
+  port: 8083
 
 spring:
   application:
-    name: PersonalService
+    name: FinalizerService
 
-  datasource:
-    url: ${PDB}
-    username: ${PU}
-    password: ${PP}
-  jpa:
-    show-sql: true
-    properties:
-      hibernate.hibernate.format_sql: true
-  liquibase:
-    enabled: true
-    change-log: classpath:db/changelog/db.changelog-master.yml
-    drop-first: false
+  cache:
+    type: redis
+    redis:
+      time-to-live: 7200s
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      jedis:
+        pool:
+          max-active: 10
+          max-idle: 5
+          min-idle: 1
+          max-wait: 5000
 
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
-      group-id: a-group
+      group-id: с-group
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer

@@ -6,6 +6,7 @@ import com.repair.repairservice.dto.WorkerDto;
 import com.repair.repairservice.entities.RepairDeal;
 import com.repair.repairservice.mappers.RepairDealMapper;
 import com.repair.repairservice.repositories.RepairDealRepository;
+import com.repair.repairservice.services.KafkaProducer;
 import com.repair.repairservice.services.RepairDealService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +19,20 @@ import java.util.Random;
 @Service
 public class RepairDealServiceImpl implements RepairDealService {
 
+    private final KafkaProducer kafkaProducer;
     private final RepairDealRepository repairDealRepository;
     private final RepairDealMapper repairDealMapper;
     private final Random random = new Random();
     private final WebClient webClient;
 
     @Autowired
-    public RepairDealServiceImpl(RepairDealRepository repairDealRepository, RepairDealMapper repairDealMapper, WebClient webClient) {
+    public RepairDealServiceImpl(
+            KafkaProducer kafkaProducer,
+            RepairDealRepository repairDealRepository,
+            RepairDealMapper repairDealMapper,
+            WebClient webClient
+    ) {
+        this.kafkaProducer = kafkaProducer;
         this.repairDealRepository = repairDealRepository;
         this.repairDealMapper = repairDealMapper;
         this.webClient = webClient;
@@ -60,7 +68,9 @@ public class RepairDealServiceImpl implements RepairDealService {
         final var work = works.get(random.nextInt(works.size()));
         final var updatedWork = repairDealMapper.mergeToEntity(worker, work);
         updatedWork.setStatus(RepairDeal.Status.ACTIVE);
-        return repairDealMapper.toActive(updatedWork);
+        final var activeDto = repairDealMapper.toActive(updatedWork);
+        kafkaProducer.sendMessage("to-finalize", activeDto);
+        return activeDto;
     }
 
     private String generateRandomString() {
