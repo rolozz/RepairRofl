@@ -13,6 +13,7 @@ public interface ClientMapper {
     ClientDto toDto(Client client);
 
     @Mapping(target = "uuid", ignore = true)
+    @Mapping(target = "name", ignore = true)
     @Mapping(target = "deals", source = "deals")
     Client mergeToEntity(ClientDto clientDto, @MappingTarget Client client);
 }

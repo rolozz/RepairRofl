@@ -13,6 +13,7 @@ public interface WorkerMapper {
 
     @Mapping(target = "uuid", ignore = true)
     @Mapping(target = "workerDeals", source = "workerDeals")
+    @Mapping(target = "workerName", ignore = true)
     Worker mergeToEntity(WorkerDto workerDto, @MappingTarget Worker worker);
 
 }

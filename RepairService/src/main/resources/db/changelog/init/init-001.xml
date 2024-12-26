@@ -1,45 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
 
-    <changeSet id="11111" author="Марк_Мишаня">
-        <createTable tableName="worker">
+    <changeSet id="11113" author="Марк_Мишаня">
+        <createTable tableName="repair_deal">
             <column name="uuid" type="UUID">
-                <constraints primaryKey="true" nullable="false" />
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="client_uuid" type="UUID">
+                <constraints nullable="true"/>
+            </column>
+            <column name="worker_uuid" type="UUID">
+                <constraints nullable="true"/>
+            </column>
+            <column name="client_name" type="VARCHAR(255)">
+                <constraints nullable="true"/>
             </column>
             <column name="worker_name" type="VARCHAR(255)">
-                <constraints nullable="false" />
+                <constraints nullable="true"/>
             </column>
-            <column name="worker_deals" type="BIGINT">
-                <constraints nullable="true" />
-            </column>
-        </createTable>
-    </changeSet>
-
-    <changeSet id="11112" author="Марк_Мишаня">
-        <createTable tableName="client">
-            <column name="uuid" type="UUID">
-                <constraints primaryKey="true" nullable="false" />
-            </column>
-            <column name="name" type="VARCHAR(255)">
-                <constraints nullable="false" />
-            </column>
-            <column name="deals" type="BIGINT">
-                <constraints nullable="true" />
+            <column name="status" type="VARCHAR(20)">
+                <constraints nullable="false"/>
             </column>
         </createTable>
-    </changeSet>
 
-    <changeSet id="11113" author="Марк_Мишаня">
-        <createIndex indexName="idx_worker_uuid" tableName="worker">
-            <column name="uuid"/>
-        </createIndex>
-    </changeSet>
-
-    <changeSet id="11114" author="Марк_Мишаня">
-        <createIndex indexName="idx_client_uuid" tableName="client">
+        <createIndex indexName="idx_repair_deal_uuid" tableName="repair_deal">
             <column name="uuid"/>
         </createIndex>
     </changeSet>
