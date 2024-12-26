@@ -1,7 +1,11 @@
 package com.repair.repairservice.services;
 
+import com.repair.repairservice.dto.ActiveDto;
+
 public interface RepairDealService {
 
-    void created();
+    String created();
+
+    ActiveDto activated();
 
 }

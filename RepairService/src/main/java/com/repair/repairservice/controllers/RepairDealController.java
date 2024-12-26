@@ -19,8 +19,24 @@ public class RepairDealController {
 
     @GetMapping("/created")
     public ResponseEntity<String> getCreated() {
-        repairDealService.created();
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body("Well Done");
+        final var income = repairDealService.created();
+        if ("fail".equals(income)) {
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                    .body("Сервис временно недоступен");
+        } else {
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body("Well Done");
+        }
+    }
+
+    @GetMapping("/active")
+    public ResponseEntity<Object> getActivated() {
+        final var income = repairDealService.activated();
+        if (income.getDealUUID() == null) {
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                    .body("Сервис временно недоступен");
+        } else {
+            return ResponseEntity.ok(income);
+        }
     }
 }
