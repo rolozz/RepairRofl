@@ -1,4 +1,4 @@
-package com.repair.repairservice.configs;
+package com.repair.repairservice.messaging.settings;
 
 import com.repair.repairservice.dto.ActiveDto;
 import org.apache.kafka.clients.producer.ProducerConfig;

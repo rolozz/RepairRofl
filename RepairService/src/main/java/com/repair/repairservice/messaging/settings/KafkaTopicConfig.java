@@ -1,4 +1,4 @@
-package com.repair.repairservice.configs;
+package com.repair.repairservice.messaging.settings;
 
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.context.annotation.Bean;

@@ -13,7 +13,10 @@ import lombok.experimental.FieldDefaults;
 import java.util.UUID;
 
 
-
+/**
+ * Класс-сущность, представляющий клиента.
+ * Этот класс отображается на таблицу базы данных и содержит информацию о клиенте.
+ */
 @Entity
 @Setter
 @Getter
@@ -23,9 +26,20 @@ import java.util.UUID;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Client {
 
+    /**
+     * Уникальный идентификатор клиента, генерируется автоматически.
+     */
     @Id
     UUID uuid = UUID.randomUUID();
-    String name;
-    Long deals;
 
+    /**
+     * Имя клиента.
+     */
+    String name;
+
+    /**
+     * Количество сделок, связанных с клиентом.
+     */
+    Long deals;
 }
+

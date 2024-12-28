@@ -1,28 +1,43 @@
 package com.repair.personalservice.services.impl;
 
 import com.repair.personalservice.dto.ClientDto;
+import com.repair.personalservice.entities.Client;
 import com.repair.personalservice.mappers.ClientMapper;
 import com.repair.personalservice.repositories.ClientRepo;
 import com.repair.personalservice.services.ClientService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Random;
 
+/**
+ * Реализация сервиса для работы с сущностями {@link Client}.
+ * <p>
+ * Этот сервис предоставляет метод для получения случайного {@link Client} из репозитория.
+ * </p>
+ */
 @Service
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ClientServiceImpl implements ClientService {
 
     private final ClientMapper clientMapper;
     private final ClientRepo clientRepo;
     private final Random random = new Random();
 
-    @Autowired
-    public ClientServiceImpl(ClientMapper clientMapper, ClientRepo clientRepo) {
-        this.clientMapper = clientMapper;
-        this.clientRepo = clientRepo;
-    }
-
+    /**
+     * Получает случайного {@link Client} из репозитория.
+     * <p>
+     * Сначала выполняется подсчет всех клиентов в базе данных. Затем выбирается случайное смещение,
+     * чтобы получить случайного клиента из репозитория.
+     * </p>
+     *
+     * @return {@link ClientDto} случайного {@link Client}.
+     * @throws RuntimeException если клиент не найден.
+     */
     @Transactional(readOnly = true)
     @Override
     public ClientDto getRandomClient() {
@@ -31,7 +46,7 @@ public class ClientServiceImpl implements ClientService {
         final var randomOffset = random.nextInt((int) totalClients);
 
         return clientMapper.toDto(
-                clientRepo.getClientByOffset(randomOffset).orElseThrow(()-> new RuntimeException("oops"))
+                clientRepo.getClientByOffset(randomOffset).orElseThrow(() -> new RuntimeException("oops"))
         );
     }
 }

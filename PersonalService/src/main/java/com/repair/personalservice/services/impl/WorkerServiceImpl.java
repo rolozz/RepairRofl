@@ -1,6 +1,7 @@
 package com.repair.personalservice.services.impl;
 
 import com.repair.personalservice.dto.WorkerDto;
+import com.repair.personalservice.entities.Worker;
 import com.repair.personalservice.mappers.WorkerMapper;
 import com.repair.personalservice.repositories.WorkerRepo;
 import com.repair.personalservice.services.WorkerService;
@@ -12,15 +13,31 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Random;
 
+/**
+ * Реализация сервиса для работы с сущностями {@link Worker}.
+ * <p>
+ * Этот сервис предоставляет метод для получения случайного {@link Worker} из репозитория.
+ * </p>
+ */
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class WorkerServiceImpl implements WorkerService {
 
-    WorkerMapper workerMapper;
-    WorkerRepo workerRepo;
-    Random random = new Random();
+    private final WorkerMapper workerMapper;
+    private final WorkerRepo workerRepo;
+    private final Random random = new Random();
 
+    /**
+     * Получает случайного {@link Worker} из репозитория.
+     * <p>
+     * Сначала выполняется подсчет всех работников в базе данных. Затем выбирается случайное смещение,
+     * чтобы получить случайного работника из репозитория.
+     * </p>
+     *
+     * @return {@link WorkerDto} случайного {@link Worker}.
+     * @throws RuntimeException если работник не найден.
+     */
     @Transactional(readOnly = true)
     @Override
     public WorkerDto getRandomWorker() {
@@ -29,7 +46,7 @@ public class WorkerServiceImpl implements WorkerService {
         final var randomOffset = random.nextInt((int) totalWorkers);
 
         return workerMapper.toDto(
-                workerRepo.getWorkerByOffset(randomOffset).orElseThrow(()-> new RuntimeException("oops")))
-                ;
+                workerRepo.getWorkerByOffset(randomOffset).orElseThrow(() -> new RuntimeException("oops"))
+        );
     }
 }

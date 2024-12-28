@@ -1,24 +1,39 @@
 package com.repair.personalservice.controllers;
 
 import com.repair.personalservice.dto.WorkerDto;
+import com.repair.personalservice.entities.Worker;
 import com.repair.personalservice.services.WorkerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Контроллер для работы с сущностями {@link Worker}.
+ * <p>
+ * Предоставляет REST-эндпоинт для получения случайного работника.
+ * </p>
+ */
 @RestController
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class WorkerController {
 
     private final WorkerService workerService;
 
-    @Autowired
-    public WorkerController(WorkerService workerService) {
-        this.workerService = workerService;
-    }
-
+    /**
+     * Возвращает случайного работника.
+     * <p>
+     * Этот метод вызывает сервисный слой для получения случайного {@link Worker},
+     * преобразованного в {@link WorkerDto}, и возвращает его в виде HTTP-ответа.
+     * </p>
+     *
+     * @return {@link ResponseEntity}, содержащий случайного {@link WorkerDto}.
+     */
     @GetMapping("/worker")
-    public ResponseEntity<WorkerDto> getSomeRandomW(){
+    public ResponseEntity<WorkerDto> getSomeRandomW() {
         return ResponseEntity.ok(workerService.getRandomWorker());
     }
 }

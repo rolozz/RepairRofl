@@ -1,4 +1,4 @@
-package com.repair.repairservice.services;
+package com.repair.repairservice.messaging;
 
 import com.repair.repairservice.dto.ActiveDto;
 
