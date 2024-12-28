@@ -5,12 +5,13 @@ import com.repair.repairservice.dto.ClientDto;
 import com.repair.repairservice.dto.WorkerDto;
 import com.repair.repairservice.entities.RepairDeal;
 import com.repair.repairservice.mappers.RepairDealMapper;
-import com.repair.repairservice.repositories.RepairDealRepository;
 import com.repair.repairservice.messaging.KafkaProducer;
+import com.repair.repairservice.repositories.RepairDealRepository;
 import com.repair.repairservice.services.RepairDealService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -19,29 +20,16 @@ import java.util.List;
 import java.util.Random;
 
 @Service
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class RepairDealServiceImpl implements RepairDealService {
 
-    private final KafkaProducer kafkaProducer;
-    private final RepairDealRepository repairDealRepository;
-    private final RepairDealMapper repairDealMapper;
-    private final Random random = new Random();
-    private final WebClient webClient;
-    private final RepairDealService self;
-
-    @Autowired
-    public RepairDealServiceImpl(
-            KafkaProducer kafkaProducer,
-            RepairDealRepository repairDealRepository,
-            RepairDealMapper repairDealMapper,
-            WebClient webClient,
-            @Lazy RepairDealService self
-    ) {
-        this.kafkaProducer = kafkaProducer;
-        this.repairDealRepository = repairDealRepository;
-        this.repairDealMapper = repairDealMapper;
-        this.webClient = webClient;
-        this.self = self;
-    }
+    KafkaProducer kafkaProducer;
+    RepairDealRepository repairDealRepository;
+    RepairDealMapper repairDealMapper;
+    Random random = new Random();
+    WebClient webClient;
+    RepairDealService self;
 
     @Transactional
     @Override
@@ -69,9 +57,8 @@ public class RepairDealServiceImpl implements RepairDealService {
     }
 
 
-
     @Override
-    public RepairDeal getClient(){
+    public RepairDeal getClient() {
         return repairDealMapper.toCreatedEntity(
                 webClient.get()
                         .uri("/client")
@@ -82,7 +69,7 @@ public class RepairDealServiceImpl implements RepairDealService {
     }
 
     @Override
-    public WorkerDto getWorker(){
+    public WorkerDto getWorker() {
         return webClient.get()
                 .uri("/worker")
                 .retrieve()
@@ -92,7 +79,7 @@ public class RepairDealServiceImpl implements RepairDealService {
 
     @Transactional
     @Override
-    public List<RepairDeal> getAll(){
+    public List<RepairDeal> getAll() {
         return repairDealRepository.findAllCreated(RepairDeal.Status.CREATED);
     }
 
@@ -102,7 +89,7 @@ public class RepairDealServiceImpl implements RepairDealService {
     }
 
     @SuppressWarnings("unused")
-    public ActiveDto fallbackWorker(Throwable throwable){
+    public ActiveDto fallbackWorker(Throwable throwable) {
         return new ActiveDto();
     }
 
@@ -114,7 +101,6 @@ public class RepairDealServiceImpl implements RepairDealService {
         }
         return sb.toString();
     }
-
 
 
 }

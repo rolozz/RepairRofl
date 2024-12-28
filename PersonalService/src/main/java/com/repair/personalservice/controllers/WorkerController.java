@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class WorkerController {
 
-    private final WorkerService workerService;
+    WorkerService workerService;
 
     /**
      * Возвращает случайного работника.

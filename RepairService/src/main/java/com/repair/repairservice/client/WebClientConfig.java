@@ -1,4 +1,4 @@
-package com.repair.repairservice.configs;
+package com.repair.repairservice.client;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

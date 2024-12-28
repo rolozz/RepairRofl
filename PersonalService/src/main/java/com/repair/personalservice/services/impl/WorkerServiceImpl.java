@@ -24,9 +24,9 @@ import java.util.Random;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class WorkerServiceImpl implements WorkerService {
 
-    private final WorkerMapper workerMapper;
-    private final WorkerRepo workerRepo;
-    private final Random random = new Random();
+    WorkerMapper workerMapper;
+    WorkerRepo workerRepo;
+    Random random = new Random();
 
     /**
      * Получает случайного {@link Worker} из репозитория.

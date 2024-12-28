@@ -1,21 +1,20 @@
 package com.repair.repairservice.controllers;
 
 import com.repair.repairservice.services.RepairDealService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class RepairDealController {
 
-    private final RepairDealService repairDealService;
-
-    @Autowired
-    public RepairDealController(RepairDealService repairDealService) {
-        this.repairDealService = repairDealService;
-    }
+    RepairDealService repairDealService;
 
     @GetMapping("/created")
     public ResponseEntity<String> getCreated() {

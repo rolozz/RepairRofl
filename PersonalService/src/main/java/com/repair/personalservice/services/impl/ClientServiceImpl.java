@@ -24,9 +24,9 @@ import java.util.Random;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ClientServiceImpl implements ClientService {
 
-    private final ClientMapper clientMapper;
-    private final ClientRepo clientRepo;
-    private final Random random = new Random();
+    ClientMapper clientMapper;
+    ClientRepo clientRepo;
+    Random random = new Random();
 
     /**
      * Получает случайного {@link Client} из репозитория.

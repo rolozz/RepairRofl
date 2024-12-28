@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ClientController {
 
-    private final ClientService clientService;
+    ClientService clientService;
 
     /**
      * Возвращает случайного клиента.
