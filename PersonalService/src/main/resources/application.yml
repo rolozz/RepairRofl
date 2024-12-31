@@ -4,7 +4,6 @@ server:
 spring:
   application:
     name: PersonalService
-
   datasource:
     url: ${PDB}
     username: ${PU}
@@ -35,3 +34,18 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG # Логирование SQL-запросов
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE # Логирование параметров SQL-запросов
+    root: INFO
+  loggers:
+    hibernate:
+      SQL: DEBUG # Логирование SQL-запросов
+      org.hibernate.type.descriptor.sql.BasicBinder: TRACE # Логирование параметров запросов

@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.List;
 import java.util.Random;
 
 @Service
@@ -29,7 +28,6 @@ public class RepairDealServiceImpl implements RepairDealService {
     RepairDealMapper repairDealMapper;
     Random random = new Random();
     WebClient webClient;
-    RepairDealService self;
 
     @Transactional
     @Override
@@ -47,7 +45,7 @@ public class RepairDealServiceImpl implements RepairDealService {
     @CircuitBreaker(name = "PersonalService", fallbackMethod = "fallbackWorker")
     public ActiveDto activated() {
         final var worker = getWorker();
-        final var works = self.getAll();
+        final var works = repairDealRepository.findAllCreated(RepairDeal.Status.CREATED);
         final var work = works.get(random.nextInt(works.size()));
         final var updatedWork = repairDealMapper.mergeToEntity(worker, work);
         updatedWork.setStatus(RepairDeal.Status.ACTIVE);
@@ -55,7 +53,6 @@ public class RepairDealServiceImpl implements RepairDealService {
         kafkaProducer.sendMessage("to-finalize", activeDto);
         return activeDto;
     }
-
 
     @Override
     public RepairDeal getClient() {
@@ -75,12 +72,6 @@ public class RepairDealServiceImpl implements RepairDealService {
                 .retrieve()
                 .bodyToMono(WorkerDto.class)
                 .block();
-    }
-
-    @Transactional
-    @Override
-    public List<RepairDeal> getAll() {
-        return repairDealRepository.findAllCreated(RepairDeal.Status.CREATED);
     }
 
     @SuppressWarnings("unused")

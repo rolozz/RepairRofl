@@ -53,6 +53,23 @@ resilience4j:
         failureRateThreshold: 50
         waitDurationInOpenState: 10s
 
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG # Логирование SQL-запросов
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE # Логирование параметров SQL-запросов
+    root: INFO
+  loggers:
+    hibernate:
+      SQL: DEBUG # Логирование SQL-запросов
+      org.hibernate.type.descriptor.sql.BasicBinder: TRACE # Логирование параметров запросов
+
+
+
 
 
 

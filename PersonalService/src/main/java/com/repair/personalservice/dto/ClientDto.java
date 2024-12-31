@@ -13,9 +13,8 @@ import java.io.Serializable;
 import java.util.UUID;
 
 /**
- * Класс DTO (Data Transfer Object) для клиента.
- * Этот класс используется для передачи данных между различными слоями приложения.
- * Связан с сущностью {@link Client}.
+ * Класс DTO (Data Transfer Object) для клиента. Этот класс используется для передачи данных между
+ * различными слоями приложения. Связан с сущностью {@link Client}.
  */
 @Setter
 @Getter
@@ -25,18 +24,12 @@ import java.util.UUID;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ClientDto implements Serializable {
 
-    /**
-     * Уникальный идентификатор клиента.
-     */
-    UUID uuid;
+  /** Уникальный идентификатор клиента. */
+  UUID uuid;
 
-    /**
-     * Имя клиента.
-     */
-    String name;
+  /** Имя клиента. */
+  String name;
 
-    /**
-     * Количество сделок, связанных с клиентом.
-     */
-    Long deals;
+  /** Количество сделок, связанных с клиентом. */
+  Long deals;
 }

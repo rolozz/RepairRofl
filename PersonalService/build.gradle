@@ -36,6 +36,8 @@ dependencies {
     implementation group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.5.5.Final'
     implementation group: 'org.projectlombok', name: 'lombok-mapstruct-binding', version: '0.2.0'
     implementation 'org.springframework.kafka:spring-kafka'
+    implementation 'net.logstash.logback:logstash-logback-encoder:7.0'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
     testImplementation 'org.springframework.kafka:spring-kafka-test'
     compileOnly 'org.projectlombok:lombok:1.18.30'
     runtimeOnly 'org.postgresql:postgresql'

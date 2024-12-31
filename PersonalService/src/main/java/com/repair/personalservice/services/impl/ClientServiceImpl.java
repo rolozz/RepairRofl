@@ -15,38 +15,35 @@ import java.util.Random;
 
 /**
  * Реализация сервиса для работы с сущностями {@link Client}.
- * <p>
- * Этот сервис предоставляет метод для получения случайного {@link Client} из репозитория.
- * </p>
+ *
+ * <p>Этот сервис предоставляет метод для получения случайного {@link Client} из репозитория.
  */
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ClientServiceImpl implements ClientService {
 
-    ClientMapper clientMapper;
-    ClientRepo clientRepo;
-    Random random = new Random();
+  ClientMapper clientMapper;
+  ClientRepo clientRepo;
+  Random random = new Random();
 
-    /**
-     * Получает случайного {@link Client} из репозитория.
-     * <p>
-     * Сначала выполняется подсчет всех клиентов в базе данных. Затем выбирается случайное смещение,
-     * чтобы получить случайного клиента из репозитория.
-     * </p>
-     *
-     * @return {@link ClientDto} случайного {@link Client}.
-     * @throws RuntimeException если клиент не найден.
-     */
-    @Transactional(readOnly = true)
-    @Override
-    public ClientDto getRandomClient() {
-        final var totalClients = clientRepo.count();
+  /**
+   * Получает случайного {@link Client} из репозитория.
+   *
+   * <p>Сначала выполняется подсчет всех клиентов в базе данных. Затем выбирается случайное
+   * смещение, чтобы получить случайного клиента из репозитория.
+   *
+   * @return {@link ClientDto} случайного {@link Client}.
+   * @throws RuntimeException если клиент не найден.
+   */
+  @Transactional(readOnly = true)
+  @Override
+  public ClientDto getRandomClient() {
+    final var totalClients = clientRepo.count();
 
-        final var randomOffset = random.nextInt((int) totalClients);
+    final var randomOffset = random.nextInt((int) totalClients);
 
-        return clientMapper.toDto(
-                clientRepo.getClientByOffset(randomOffset).orElseThrow(() -> new RuntimeException("oops"))
-        );
-    }
+    return clientMapper.toDto(
+        clientRepo.getClientByOffset(randomOffset).orElseThrow(() -> new RuntimeException("oops")));
+  }
 }

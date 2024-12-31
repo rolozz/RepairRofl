@@ -13,8 +13,8 @@ import lombok.experimental.FieldDefaults;
 import java.util.UUID;
 
 /**
- * Класс-сущность, представляющий работника.
- * Этот класс отображается на таблицу базы данных и содержит информацию о работнике.
+ * Класс-сущность, представляющий работника. Этот класс отображается на таблицу базы данных и
+ * содержит информацию о работнике.
  */
 @Entity
 @Setter
@@ -25,19 +25,12 @@ import java.util.UUID;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Worker {
 
-    /**
-     * Уникальный идентификатор работника, генерируется автоматически.
-     */
-    @Id
-    UUID uuid = UUID.randomUUID();
+  /** Уникальный идентификатор работника, генерируется автоматически. */
+  @Id UUID uuid = UUID.randomUUID();
 
-    /**
-     * Имя работника.
-     */
-    String workerName;
+  /** Имя работника. */
+  String workerName;
 
-    /**
-     * Количество сделок, обработанных работником.
-     */
-    Long workerDeals;
+  /** Количество сделок, обработанных работником. */
+  Long workerDeals;
 }

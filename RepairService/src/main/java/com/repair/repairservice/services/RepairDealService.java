@@ -16,6 +16,4 @@ public interface RepairDealService {
 
     WorkerDto getWorker();
 
-    List<RepairDeal> getAll();
-
 }

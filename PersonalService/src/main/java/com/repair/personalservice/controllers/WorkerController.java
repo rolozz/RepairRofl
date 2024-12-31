@@ -12,28 +12,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Контроллер для работы с сущностями {@link Worker}.
- * <p>
- * Предоставляет REST-эндпоинт для получения случайного работника.
- * </p>
+ *
+ * <p>Предоставляет REST-эндпоинт для получения случайного работника.
  */
 @RestController
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class WorkerController {
 
-    WorkerService workerService;
+  WorkerService workerService;
 
-    /**
-     * Возвращает случайного работника.
-     * <p>
-     * Этот метод вызывает сервисный слой для получения случайного {@link Worker},
-     * преобразованного в {@link WorkerDto}, и возвращает его в виде HTTP-ответа.
-     * </p>
-     *
-     * @return {@link ResponseEntity}, содержащий случайного {@link WorkerDto}.
-     */
-    @GetMapping("/worker")
-    public ResponseEntity<WorkerDto> getSomeRandomW() {
-        return ResponseEntity.ok(workerService.getRandomWorker());
-    }
+  /**
+   * Возвращает случайного работника.
+   *
+   * <p>Этот метод вызывает сервисный слой для получения случайного {@link Worker}, преобразованного
+   * в {@link WorkerDto}, и возвращает его в виде HTTP-ответа.
+   *
+   * @return {@link ResponseEntity}, содержащий случайного {@link WorkerDto}.
+   */
+  @GetMapping("/worker")
+  public ResponseEntity<WorkerDto> getSomeRandomW() {
+    return ResponseEntity.ok(workerService.getRandomWorker());
+  }
 }

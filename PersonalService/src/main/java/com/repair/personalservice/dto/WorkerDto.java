@@ -13,9 +13,8 @@ import java.io.Serializable;
 import java.util.UUID;
 
 /**
- * Класс DTO (Data Transfer Object) для работника.
- * Этот класс используется для передачи данных между различными слоями приложения.
- * Связан с сущностью {@link Worker}.
+ * Класс DTO (Data Transfer Object) для работника. Этот класс используется для передачи данных между
+ * различными слоями приложения. Связан с сущностью {@link Worker}.
  */
 @Setter
 @Getter
@@ -25,18 +24,12 @@ import java.util.UUID;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class WorkerDto implements Serializable {
 
-    /**
-     * Уникальный идентификатор работника.
-     */
-    UUID uuid;
+  /** Уникальный идентификатор работника. */
+  UUID uuid;
 
-    /**
-     * Имя работника.
-     */
-    String workerName;
+  /** Имя работника. */
+  String workerName;
 
-    /**
-     * Количество сделок, обработанных работником.
-     */
-    Long workerDeals;
+  /** Количество сделок, обработанных работником. */
+  Long workerDeals;
 }

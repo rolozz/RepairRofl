@@ -11,6 +11,19 @@ import lombok.experimental.FieldDefaults;
 import java.io.Serializable;
 import java.util.UUID;
 
+/**
+ * DTO (Data Transfer Object) для представления данных о клиенте.
+ * Используется для передачи информации между сервисами и слоями приложения.
+ *
+ * <p>Содержит следующие поля:</p>
+ * <ul>
+ *     <li><b>uuid</b> - Уникальный идентификатор клиента.</li>
+ *     <li><b>name</b> - Имя клиента.</li>
+ * </ul>
+ *
+ * <p>Аннотации Lombok используются для автоматической генерации геттеров, сеттеров,
+ * конструктора, метода {@code toString}, а также для задания уровня доступа к полям.</p>
+ */
 @Setter
 @Getter
 @NoArgsConstructor
@@ -19,7 +32,13 @@ import java.util.UUID;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ClientDto implements Serializable {
 
+    /**
+     * Уникальный идентификатор клиента.
+     */
     UUID uuid;
-    String name;
 
+    /**
+     * Имя клиента.
+     */
+    String name;
 }
